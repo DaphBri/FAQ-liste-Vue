@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="utf-8">
+  <title>Titre</title>
+
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+  <link rel="stylesheet" href="css/style.min.css">
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css">
+
+</head>
+
+<body>
+
+<!-- 
+  Bootstrap docs: https://getbootstrap.com/docs
+-->
+<div class="container-fluid" id="app">
+  <div class="row"   v-for="q in questions" v-if="q.answer">
+    <div class="col">
+      <div class="card text-white bg-primary mb-3" :class="{'bg-primary': q.answer !== true, 'bg-warning': q.answer === null}">
+        <!-- /voir une class couleur ('bg-primary/blue' ou 'bg-warning/jaune')=> si il y a une réponse = blue, si pas de repons à la question = jaune -->
+        <div class="card-header"><a href="" class="text-light">#{{q.category}}</a></div>
+
+        <div class="float-right vote" v-if="!q.answer">
+          <i class="far fa-plus-square"></i> <span>0 votes</span>
+        </div>
+
+        <div class="faq card-body" @click="toggle(q)">
+          <h5 class="card-title" >{{q.title}}</h5>
+          <p class="answer card-text" v-if="q.isShown">{{q.answer}}</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- <div class="row">
+    <div class="col">
+      <div class="card text-white bg-primary mb-3">
+        <div class="card-header"><a href="" class="text-light">#database</a></div>
+        <div class="faq card-body">
+          <h5 class="card-title">Comment créer une base de données DynamoDB ?</h5>
+          <p class="answer card-text" hidden>En lisant le tutoriel.</p>
+        </div>
+      </div>
+    </div>
+  </div> -->
+
+  <div class="row">
+    <div class="col">
+      <div class="card text-white bg-warning mb-3">
+        <div class="card-header">
+          <a href="" class="text-light">#programmation</a>
+          <div class="float-right vote" @click="incrementCount()">
+            <i class="far fa-plus-square"></i> <span>{{count}} votes</span>
+          </div>
+        </div>
+        <div class="faq card-body">
+          <h5 class="card-title">Comment faire "Hello World" en JavaScript ?</h5>
+          <p class="card-text">Votez pour cette question, si la question obtient 5 votes, nous fournirons une réponse</p>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col">
+      <div class="card text-whitemb-3">
+        <div class="card-body">
+          <h5 class="card-title">Posez-nous votre question</h5>
+
+<!-- nouveau el:#??? -->
+          <form >
+
+            <div class="form-group">
+              <label for="email">E-mail</label>
+              <input type="email" v-model="email" class="form-control" id="email" placeholder="Votre e-mail">
+            </div>
+
+            <div class="form-group">
+              <label for="subject">Sujet</label>
+              <select v-model="subject" id="subject" class="form-control">
+                <option value="sécurité">Sécurité</option>
+                <option value="database">Bases de données</option>
+                <option value="programmation">Programmation</option>
+                <option value="iot">Objets connectés</option>
+                <option value="cloud">Cloud</option>
+              </select>
+            </div>
+
+            <div class="form-group">
+              <label for="question">Question</label>
+              <textarea v-model="question" class="form-control" id="question" placeholder="Comment..."></textarea>
+            </div>
+            <button type="submit" class="btn btn-primary" @click.prevent="send()">Envoyer</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.18.0/axios.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <script src=" https://cdnjs.cloudflare.com/ajax/libs/vue/2.5.22/vue.min.js"></script>
+  <script src="js/vue.js"></script>
+  <script src="js/main.js"></script>
+</body>
+
+</html>
